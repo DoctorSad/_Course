@@ -188,5 +188,6 @@ def exit_program() -> int:
     else:
         return 0  # Заканчиваем программу
 
+
 if __name__ == "__main__":
     main()
