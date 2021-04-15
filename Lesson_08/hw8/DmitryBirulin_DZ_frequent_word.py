@@ -15,12 +15,12 @@
 
 import collections
 import re
+text = "hi world, hi python. i am центре1 very cool but i am still learning."
 
 
 def main():
-    text = "hi world, hi python. i am центре1 very cool but i am still learning."
+
     word = frequent_word(text)
-    print(word)
 
 
 def frequent_word(text):
@@ -35,6 +35,9 @@ def frequent_word(text):
             out_words.append(i[0].lower())
     return sorted(out_words)[0]
 
+
+assert frequent_word(text) == "am"
+print("All tests passed successfully!")
 
 if __name__ == "__main__":
         main()

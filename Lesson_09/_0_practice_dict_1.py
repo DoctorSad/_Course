@@ -35,6 +35,17 @@ MORSE_CODE_MAP = {
 def main():
     s = input("Enter your text: ")
 
+    print(translate(s))
+
+
+def translate(s):
+    """Функция возвращает строку в виде символов азбуки Морзе"""
+    new_s = ""
+    for char in s.upper():
+        code = MORSE_CODE_MAP.get(char, "")
+        new_s += code + " "
+    return new_s
+
 
 if __name__ == "__main__":
     main()

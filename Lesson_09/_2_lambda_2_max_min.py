@@ -22,7 +22,7 @@ def main():
     b = ["A", "django", "Zappelin", "BROWN", "black", "advanced"]
 
     # 4. Получить самую длинную строку из списка b
-    print("4.", max(b, key=len))
+    print("4.", max(b, key=len))  # "Zappelin"
 
 
 if __name__ == "__main__":
