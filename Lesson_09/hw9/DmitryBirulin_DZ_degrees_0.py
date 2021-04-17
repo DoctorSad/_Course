@@ -35,3 +35,48 @@
     ...
 
 """
+
+
+from pathlib import Path
+import json
+from pprint import pprint
+
+
+def main():
+    data = parse_data('Files', 'data.json')
+    data = sort_data(data)
+    show_data(data)
+
+
+def parse_data(dir_: str, file: str) -> list:
+    BASE_DIR = Path(__file__).resolve().parent
+    FILES_DIR = BASE_DIR / dir_
+    FILES_DIR.mkdir(exist_ok=True)
+    file_path = FILES_DIR / file
+    with open(file_path) as f:
+        data = json.load(f)
+    return data
+
+
+def sort_data(list_data: list) -> list:
+    list_data.sort(key=lambda x: (x['row'], x['col']))
+    return list_data
+
+
+def show_data(list_data: list):
+    print(f'{"-" * 41}')
+    print(f'| {"№".ljust(4)} | {"°C".center(8)} | {"°F".center(8)} | {"°K".center(8)} |')
+    print(f'{"-" * 41}')
+    list_data.sort(key=lambda x: (x['row']), reverse=True)
+    number_of_elements = list_data[0]['row']
+    count = 1
+    for _ in range(number_of_elements):
+        temp_list = list(filter(lambda x: x['row'] == count, list_data))
+        print(f'| {str(count).ljust(4)} | {str(temp_list[0]["data"]).center(8)} ', end='')
+        print(f'| {str(temp_list[1]["data"]).center(8)} | {str(temp_list[2]["data"]).center(8)} | ')
+        count += 1
+    print(f'{"-" * 41}')
+
+
+if __name__ == "__main__":
+    main()
