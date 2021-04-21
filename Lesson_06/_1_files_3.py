@@ -12,6 +12,7 @@ def main():
     with open("files/hello.txt", "a+") as f:
         for i in range(1, 11):
             print(f"{i}. Hello world!", file=f)
+        f.seek(0)
         print(f.read())
 
 

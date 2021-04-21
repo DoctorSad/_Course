@@ -13,10 +13,9 @@
 
 
 def main():
-    f = open("files/hello.txt", "w")
-    f.write("Hello world!")
-    # зачем нужно закрывать файл?
-    f.close()
+    with open("hello.txt", "w") as f:
+        print("Hello world using print func.", file=f)
+        f.write("Hello world!")
 
 
 if __name__ == "__main__":

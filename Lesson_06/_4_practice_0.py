@@ -6,6 +6,9 @@
 
     Строить полный универсальный путь к users.txt, относительно текущего файла.
 """
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 
 
 def main():
@@ -13,7 +16,7 @@ def main():
     surname = input("Enter your surname: ")
     age = input("Enter your age: ")
 
-    print(name, surname, age)
+    save_info(name, surname, age)
 
 
 def get_name():
@@ -21,6 +24,12 @@ def get_name():
     if name == "admin":
         return get_name()
     return name.title()
+
+
+def save_info(name, surname, age):
+    file_path = BASE_DIR / "files" / "users.txt"
+    with open(file_path, "a+") as f:
+        print(f"{name} {surname} {age}", file=f)
 
 
 if __name__ == "__main__":

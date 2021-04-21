@@ -51,3 +51,11 @@ s = s.replace(",", "")
     то их следует заменить одним символом '*'.
     Пробелы в начале и конце строки удалить.
 """
+
+s = "Secure, shy, favour length, all twenty, denote."
+
+splited_s = s.split()
+
+result = "*".join(splited_s)
+
+print(result)
