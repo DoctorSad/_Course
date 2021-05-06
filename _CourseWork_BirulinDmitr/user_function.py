@@ -1,9 +1,7 @@
 import random
 import string
-from handling_functions import true_password
-from handling_functions import phone_number
-from handling_functions import is_unique_phone
-from handling_functions import true_email
+from handling_functions import true_password, check_phone_number, is_unique_phone, true_email, get_phone_number, \
+    get_email, get_password
 
 
 def sort_users(database_of_users: list) -> list:
@@ -78,62 +76,18 @@ def reset_password(user_from_db: dict):
 
 
 def new_user(file_errors: str, database_of_users: list) -> dict:
-
-    # 1. Пользователь вводит номер телефона.
-    while True:
-        str_number = input('Введите номер телефона: ')
-        number_out = phone_number(str_number)
-        if not is_unique_phone(number_out, database_of_users):
-            print('Введенный номер существует в базе пользователей. Введите уникальный номер')
-            continue
-        if number_out:
-            break
-        else:
-            print('Неправильный номер')
-            with open(file_errors, 'a') as f:
-                print(f"Невалидный номер телефона: {str_number}", file=f)
-            continue
-
-    # 2. Пользователь вводит email.
-    while True:
-        email = input('\nВведите email: ')
-        email_out = true_email(email)
-        if email_out:
-            break
-        else:
-            print('email неправильный!')
-            with open(file_errors, 'a') as f:
-                print(f"Невалидный email: {email}", file=f)
-
-    # 3. Пользователь ввод пароль.
-    while True:
-        confirmation = None
-        password = input('\nВведите пароль: ')
-        out_password = true_password(password)
-        if out_password:
-            print('Введите подтверждение пароля: ')
-            confirmation = input()
-            if confirmation == password:
-                break
-            else:
-                print('Подтверждение не соответствует паролю!')
-                with open(file_errors, 'a') as f:
-                    print(f"Невалидное подтверждение пароля: {confirmation}", file=f)
-                continue
-        else:
-            print('Пароль слабый')
-            with open(file_errors, 'a') as f:
-                print(f"Невалидный пароль: {password}", file=f)
-
+    number_out = get_phone_number(file_errors, database_of_users)
+    email_out = get_email(file_errors)
+    password = get_password(file_errors)
     password_for_output = '*' * len(password)
     print('\n        Поздравляем с успешной регистрацией!')
     print(f'        Ваш номер телефона: +{number_out}')
-    print(f'        Ваш email: {email}')
+    print(f'        Ваш email: {email_out}')
     print(f'        Ваш пароль: {password_for_output}')
     input()
 
     new_user_add = {"phone": number_out,
-                    "email": email,
+                    "email": email_out,
                     "password": password
                     }
     return new_user_add

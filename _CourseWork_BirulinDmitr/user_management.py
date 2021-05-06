@@ -1,14 +1,7 @@
-
 from pathlib import Path
 import json
-from menu_functions import main_menu
-from menu_functions import second_menu
-from menu_functions import third_menu
-from user_function import sort_users
-from user_function import delete_user
-from user_function import detailed_user
-from user_function import reset_password
-from user_function import new_user
+from menu_functions import get_main_menu, get_second_menu, get_third_menu
+from user_function import sort_users, delete_user, detailed_user, reset_password, new_user
 from handling_functions import import_file
 
 
@@ -25,27 +18,25 @@ def main():
     database_of_users = list(user_data_in)
 
     while True:
-        user_choice = main_menu()
-        if user_choice == 1:
+        choice_main_menu = get_main_menu()
+        if choice_main_menu == 1:  # Зарегистрировать нового пользователя
             database_of_users.append(new_user(file_errors, database_of_users))
-        elif user_choice == 2:
-            choice_second_menu = second_menu()
-            if choice_second_menu == 1:
+        elif choice_main_menu == 2:  # Просмотреть список пользователей
+            choice_second_menu = get_second_menu()
+            if choice_second_menu == 1:  # Просмотреть количество зарегистрированных пользователей
                 print(f'\nКоличество зарегистрированных пользователей: {len(database_of_users)}')
                 input()
-            elif choice_second_menu == 2:
+            elif choice_second_menu == 2:  # Вывести подробную информацию о пользователе
                 sorted_database = sort_users(database_of_users)
                 user_from_db = detailed_user(sorted_database)
-                third_choice_menu = third_menu()
-                if third_choice_menu == 1:
+                choice_third_menu = get_third_menu()
+                if choice_third_menu == 1:  # Сбросить пароль
                     reset_password(user_from_db)
-                elif third_choice_menu == 2:
+                elif choice_third_menu == 2:  # Удалить пользователя
                     delete_user(user_from_db, database_of_users)
-        elif user_choice == 3:
-            tmp = import_file()
-            database_of_users = tmp[0]
-            file_user_data = tmp[1]
-        elif user_choice == 4:
+        elif choice_main_menu == 3:  # Импорт пользователей из файла
+            database_of_users = import_file(database_of_users)
+        elif choice_main_menu == 4:  # Выход
             with open(file_user_data, "w") as f:
                 data = json.dumps(database_of_users, indent=4)
                 f.write(data)

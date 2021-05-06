@@ -1,6 +1,4 @@
-
-
-def main_menu() -> int:
+def get_main_menu() -> int:
     print('\n' * 15)
     print('1. Зарегистрировать нового пользователя')
     print('2. Просмотреть список пользователей')
@@ -19,7 +17,7 @@ def main_menu() -> int:
         return choice
 
 
-def second_menu() -> int:
+def get_second_menu() -> int:
     print('\n' * 15)
     print('1. Просмотреть количество зарегистрированных пользователей')
     print('2. Вывести подробную информацию о пользователе\n')
@@ -35,7 +33,7 @@ def second_menu() -> int:
         return choice
 
 
-def third_menu() -> int:
+def get_third_menu() -> int:
     print('\n1. Сбросить пароль')
     print('2. Удалить пользователя')
     print('3. Выйти в главное меню\n')
